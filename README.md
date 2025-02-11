@@ -1,69 +1,55 @@
-# Welcome to your Lovable project
+# Bank of Little Rock 
 
-## Project info
+A modern banking portal demo built with Next.js and React, featuring account management, transactions, loans, and interactive data visualization.
 
-**URL**: https://lovable.dev/projects/1242c0a7-af83-44c4-a8e8-d87a7479005f
+## Features
 
-## How can I edit this code?
+- **Secure Authentication**: Login system with session management
+- **Dashboard Overview**: Account balances and recent activity
+- **Transaction Management**: View and download transaction history with PDF generation
+- **Loan Management**: Interactive charts showing loan distribution and trends
+- **Responsive Design**: Mobile-first approach with modern UI components
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- Next.js 14 (App Router)
+- TypeScript
+- React
+- Tailwind CSS
+- shadcn/ui
+- Recharts for data visualization
+- jsPDF for PDF generation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1242c0a7-af83-44c4-a8e8-d87a7479005f) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Getting Started
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone <repository-url>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to project directory
+cd banking-demo
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit `http://localhost:8080` to view the application.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Project Structure
 
-**Use GitHub Codespaces**
+- `/src/pages` - Main application pages
+- `/src/components` - Reusable UI components
+- `/public` - Static assets including bank logo
+- `/src/contexts` - React context providers
+- `/src/components/ui` - shadcn/ui components
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Development
 
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/1242c0a7-af83-44c4-a8e8-d87a7479005f) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+The project uses:
+- TypeScript for type safety
+- ESLint for code quality
+- Prettier for code formatting
+- Tailwind CSS for styling
