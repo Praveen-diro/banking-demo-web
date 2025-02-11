@@ -13,6 +13,13 @@ interface CreditAccountProps extends CreditCardProps {
   CardType?: string;
   accountType?: string;
   lastTransaction?: string;
+  currency?: string;
+}
+
+interface DummyCardProps {
+  type: string;
+  balance: number;
+  cardHolder: string;
 }
 
 export const CreditAccount = ({
@@ -22,14 +29,15 @@ export const CreditAccount = ({
   expiryDate,
   Active,
   CardType,
-  accountType = 'Account Type',
-  lastTransaction
+  accountType = 'Account type',
+  lastTransaction,
+  currency
 }: CreditAccountProps) => {
   return (
     <div className="p-8 rounded-[20px] h-64 shadow-lg hover:shadow-xl transition-shadow text-white overflow-hidden" 
       style={{ background: Active === "Closed" 
         ? 'linear-gradient(107deg, #ED4949 0%, #F40606 100%)'
-        : 'linear-gradient(107deg, #4C49ED 0%, #0A06F4 100%)'
+        : 'linear-gradient(107deg, #1D1E9C 0%, #0A06F4 100%)'
       }}>
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between mb-6">
@@ -44,16 +52,16 @@ export const CreditAccount = ({
               <p className="font-medium">{CardType}</p>
             </div>
           </div>
-          <div className="text-right">
+          {/* <div className="text-right">
             <p className="text-sm text-white/80">Status</p>
             <p className="font-medium">{Active || 'Active'}</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="text-base text-white/80">Available Balance</p>
-            <p className="text-4xl font-semibold mt-1">${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className="text-base text-white/80">Available balance</p>
+            <p className="text-4xl font-semibold mt-1">{currency ? `${currency} ` : '$ '}{balance.toLocaleString()}</p>
             {lastTransaction && (
               <p className="text-sm text-white/70 mt-1">Last transaction: {lastTransaction}</p>
             )}
@@ -61,11 +69,11 @@ export const CreditAccount = ({
 
           <div className="flex justify-between items-end">
             <div>
-              <p className="text-sm text-white/70">Account Holder</p>
+              <p className="text-sm text-white/70">Account holder</p>
               <p className="text-lg font-medium">{cardHolder}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-white/70">Account Number</p>
+              <p className="text-sm text-white/70">Account number</p>
               <p className="text-lg font-medium tracking-wider">****{cardNumber.slice(-4)}</p>
             </div>
           </div>
@@ -81,15 +89,16 @@ export const CreditAccount2 = ({
   cardNumber,
   expiryDate,
   Active,
-  CardType = 'Account Type',
-  accountType = 'Account Type',
-  lastTransaction
+  CardType = 'Account type',
+  accountType = 'Account type',
+  lastTransaction,
+  currency
 }: CreditAccountProps) => {
   return (
     <div className="p-8 rounded-[20px] h-64 shadow-lg hover:shadow-xl transition-shadow text-white overflow-hidden" 
       style={{ background: Active === "Closed" 
         ? 'linear-gradient(107deg, #ED4949 0%, #F40606 100%)'
-        : 'linear-gradient(107deg, #6366F1 0%, #4F46E5 100%)'
+        : 'linear-gradient(107deg, #1D1E9C 0%, #0A06F4 100%)'
       }}>
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between mb-6">
@@ -104,16 +113,16 @@ export const CreditAccount2 = ({
               <p className="font-medium">{CardType}</p>
             </div>
           </div>
-          <div className="text-right">
+          {/* <div className="text-right">
             <p className="text-sm text-white/80">Status</p>
             <p className="font-medium">{Active || 'Active'}</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="text-base text-white/80">Available Balance</p>
-            <p className="text-4xl font-semibold mt-1">${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className="text-base text-white/80">Available balance</p>
+            <p className="text-4xl font-semibold mt-1">{currency?`${currency} `:'$ '}{balance.toLocaleString()}</p>
             {lastTransaction && (
               <p className="text-sm text-white/70 mt-1">Last transaction: {lastTransaction}</p>
             )}
@@ -121,11 +130,11 @@ export const CreditAccount2 = ({
 
           <div className="flex justify-between items-end">
             <div>
-              <p className="text-sm text-white/70">Account Holder</p>
+              <p className="text-sm text-white/70">Account holder</p>
               <p className="text-lg font-medium">{cardHolder}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-white/70">Account Number</p>
+              <p className="text-sm text-white/70">Account number</p>
               <p className="text-lg font-medium tracking-wider">****{cardNumber.slice(-4)}</p>
             </div>
           </div>
@@ -143,12 +152,12 @@ export const CreditCard = ({
 }: CreditCardProps) => {
   return (
     <div className="p-8 pt-8 pb-0 rounded-[20px] h-64 shadow-lg hover:shadow-xl transition-shadow text-white overflow-hidden" 
-      style={{ background: 'linear-gradient(107deg, #4C49ED 0%, #0A06F4 100%)' }}>
+      style={{ background: 'linear-gradient(107deg, #1D1E9C 0%, #0A06F4 100%)' }}>
       <div className="flex flex-col h-full">
         <div className="space-y-1">
-          <p className="text-base text-white/80">Available Balance</p>
+          <p className="text-base text-white/80">Available balance</p>
           <div className="flex justify-between items-start">
-            <p className="text-4xl font-semibold">${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className="text-4xl font-semibold">${balance.toLocaleString()}</p>
             <div className="w-12 h-8 flex items-center justify-center">
               <img src="public/sim-card-chip.png" alt="Card Chip" className="w-9 h-10" />
             </div>
@@ -190,9 +199,9 @@ export const CreditCardBack = ({
     <div className="p-8 pt-8 pb-0 rounded-[20px] h-64 shadow-2xl hover:shadow-xl transition-shadow bg-gray-100 text-black overflow-hidden">
       <div className="flex flex-col h-full">
         <div className="space-y-1">
-          <p className="text-base text-black/60">Available Balance</p>
+          <p className="text-base text-black/60">Available balance</p>
           <div className="flex justify-between items-start">
-            <p className="text-4xl font-semibold">${(balance / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p className="text-4xl font-semibold">${balance.toLocaleString()}</p>
             <div className="w-12 h-8 flex items-center justify-center">
               <img src="/sim-card-chip.png" alt="Card Chip" className="w-9 h-10 brightness-0" />
             </div>
@@ -216,6 +225,46 @@ export const CreditCardBack = ({
             <div className="w-12 h-8">
               <div className="w-8 h-8 bg-gray-300 rounded-full -ml-4" />
               <div className="w-8 h-8 bg-gray-200 rounded-full -mt-8 ml-4" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const DummyCard = ({
+  type,
+  balance,
+  cardHolder,
+}: DummyCardProps) => {
+  return (
+    <div className="p-8 rounded-[20px] h-64 shadow-lg text-white overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 opacity-90">
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </div>
+            <div>
+              {/* <p className="text-sm text-white/80">Account type</p> */}
+              <p className="font-medium">{type}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div>
+            <p className="text-base text-white/80">Available balance</p>
+            <p className="text-4xl font-semibold mt-1">$ {balance.toLocaleString()}</p>
+          </div>
+
+          <div className="flex justify-between items-end">
+            <div>
+              <p className="text-sm text-white/70">Account holder</p>
+              <p className="text-lg font-medium">{cardHolder}</p>
             </div>
           </div>
         </div>

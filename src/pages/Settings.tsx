@@ -5,9 +5,9 @@ import { Switch } from '@/components/ui/switch';
 const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [formData, setFormData] = useState({
-    bankName: 'Corporate Banking Division',
+    bankName: 'Corporate banking division',
     branchCode: 'CBD-001',
-    email: 'dirolabs@gmail.com',
+    email: 'demo@gmail.com',
     registrationNumber: 'REG123456789',
     corporateAddress: '123 Financial District, San Francisco',
     branchAddress: 'Floor 25, Financial Tower',
@@ -54,13 +54,13 @@ const Settings: React.FC = () => {
                 className={`pb-4 ${activeTab === 'profile' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}
                 onClick={() => setActiveTab('profile')}
               >
-                Corporate Profile
+                Corporate profile
               </button>
               <button
                 className={`pb-4 ${activeTab === 'preferences' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}
                 onClick={() => setActiveTab('preferences')}
               >
-                System Preferences
+                System preferences
               </button>
               <button
                 className={`pb-4 ${activeTab === 'security' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}

@@ -8,26 +8,26 @@ import { Layout } from "@/components/Layout";
 // Updated card accounts to match Index.tsx
 const cardAccounts = [
   {
-    type: "Escrow",
-    balance: 5100344,
-    cardHolder: "Coforge Inc.",
+    type: "Checking account",
+    balance: 18003443,
+    cardHolder: "Coforge Inc",
+    cardNumber: "8712434432",
+    expiryDate: "12/22",
+    Active: "active"
+  },
+  {
+    type: "Escrow account",
+    balance: 21434342,
+    cardHolder: "Coforge Inc",
     cardNumber: "3778232389",
     expiryDate: "12/22",
     Active: "Active"
   },
   {
-    type: "Foreign account",
-    balance: 2143434,
-    cardHolder: "Enrica foges",
+    type: "Foreign currency account",
+    balance: 70005673,
+    cardHolder: "Coforge Inc",
     cardNumber: "8712083309",
-    expiryDate: "12/22",
-    Active: "active"
-  },
-  {
-    type: "Checking account",
-    balance: 2100567,
-    cardHolder: "MNEWave Inc.",
-    cardNumber: "8712434432",
     expiryDate: "12/22",
     Active: "active"
   }
@@ -35,115 +35,115 @@ const cardAccounts = [
 
 // Updated transactions data structure to include person/institution names
 const transactionsByType = {
-  Escrow: [
+  "Escrow account": [
     {
       id: "TX-001",
-      person: "John Smith",
-      description: "Escrow Payment",
+      person: "Tata goods Inc",
+      description: "Escrow payment",
       amount: 250000,
       date: "2024-03-15",
       type: "credit",
       accountNumber: "3778232389",
-      accountName: "Escrow"
+      accountName: "Escrow account"
     },
     {
       id: "TX-002",
-      person: "Real Estate Corp",
+      person: "Real estate corp",
       description: "Escrow Deposit",
       amount: 180000,
       date: "2024-03-12",
       type: "debit",
       accountNumber: "3778232389",
-      accountName: "Escrow"
+      accountName: "Escrow account"
     },
     {
       id: "TX-007",
-      person: "Property Management LLC",
+      person: "Property management LLC",
       description: "Monthly Escrow",
       amount: 320000,
       date: "2024-03-08",
       type: "credit",
       accountNumber: "3778232389",
-      accountName: "Escrow"
+      accountName: "Escrow account"
     },
     {
       id: "TX-008",
-      person: "City Housing Authority",
+      person: "City housing authority",
       description: "Property Tax Payment",
       amount: 150000,
       date: "2024-03-05",
       type: "debit",
       accountNumber: "3778232389",
-      accountName: "Escrow"
+      accountName: "Escrow account"
     },
     {
       id: "TX-009",
-      person: "Home Insurance Co",
+      person: "Home insurance Co",
       description: "Insurance Payment",
       amount: 75000,
       date: "2024-03-01",
       type: "debit",
       accountNumber: "3778232389",
-      accountName: "Escrow"
+      accountName: "Escrow account"
     }
   ],
-  "Foreign account": [
+  "Foreign currency account": [
     {
       id: "TX-003",
-      person: "Global Trading Ltd",
-      description: "International Transfer",
+      person: "Global trading Ltd",
+      description: "International transfer",
       amount: 320000,
       date: "2024-03-14",
       type: "credit",
       accountNumber: "8712083309",
-      accountName: "Foreign account"
+      accountName: "Foreign currency account"
     },
     {
       id: "TX-004",
-      person: "Euro Exchange Inc",
-      description: "Foreign Exchange",
+      person: "Euro exchange Inc",
+      description: "Foreign exchange",
       amount: 150000,
       date: "2024-03-11",
       type: "debit",
       accountNumber: "8712083309",
-      accountName: "Foreign account"
+      accountName: "Foreign currency account"
     },
     {
       id: "TX-010",
-      person: "Asian Markets Corp",
-      description: "Import Payment",
+      person: "Asian markets Corp",
+      description: "Import payment",
       amount: 450000,
       date: "2024-03-07",
       type: "debit",
       accountNumber: "8712083309",
-      accountName: "Foreign account"
+      accountName: "Foreign currency account"
     },
     {
       id: "TX-011",
-      person: "Deutsche Bank AG",
-      description: "SWIFT Transfer",
+      person: "Deutsche bank AG",
+      description: "SWIFT transfer",
       amount: 680000,
       date: "2024-03-04",
       type: "credit",
       accountNumber: "8712083309",
-      accountName: "Foreign account"
+      accountName: "Foreign currency account"
     },
     {
       id: "TX-012",
-      person: "HSBC Holdings",
-      description: "Forex Settlement",
+      person: "HSBC holdings",
+      description: "Forex settlement",
       amount: 290000,
       date: "2024-03-02",
       type: "credit",
       accountNumber: "8712083309",
-      accountName: "Foreign account"
+      accountName: "Foreign currency account"
     }
   ],
   "Checking account": [
     {
       id: "TX-005",
-      person: "Payroll Services",
-      description: "Direct Deposit",
+      person: "Payroll services",
+      description: "Direct deposit",
       amount: 450000,
       date: "2024-03-13",
       type: "credit",
@@ -152,8 +152,8 @@ const transactionsByType = {
     },
     {
       id: "TX-006",
-      person: "ATM Withdrawal",
-      description: "Cash Withdrawal",
+      person: "ATM withdrawal",
+      description: "Cash withdrawal",
       amount: 75000,
       date: "2024-03-10",
       type: "debit",
@@ -163,7 +163,7 @@ const transactionsByType = {
     {
       id: "TX-013",
       person: "Amazon.com",
-      description: "Online Purchase",
+      description: "Online purchase",
       amount: 12500,
       date: "2024-03-06",
       type: "debit",
@@ -172,8 +172,8 @@ const transactionsByType = {
     },
     {
       id: "TX-014",
-      person: "Walmart Stores",
-      description: "POS Purchase",
+      person: "Walmart stores",
+      description: "POS purchase",
       amount: 8500,
       date: "2024-03-03",
       type: "debit",
@@ -182,8 +182,8 @@ const transactionsByType = {
     },
     {
       id: "TX-015",
-      person: "Utility Company",
-      description: "Bill Payment",
+      person: "Utility company",
+      description: "Bill payment",
       amount: 25000,
       date: "2024-03-01",
       type: "debit",
@@ -308,8 +308,8 @@ const Accounts = () => {
                 <Wallet className="w-6 h-6 text-yellow-600" />
               </div>
               <div>
-                <p className="text-sm text-muted">My Balance</p>
-                <p className="text-xl font-semibold">${(selectedCard.balance).toFixed(2)}</p>
+                <p className="text-sm text-muted">Balance</p>
+                <p className="text-xl font-semibold">${48095700}</p>
               </div>
             </CardContent>
           </Card>
@@ -320,7 +320,7 @@ const Accounts = () => {
                 <ArrowUpRight className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-muted">Income</p>
+                <p className="text-sm text-muted">Deposite</p>
                 <p className="text-xl font-semibold">${(totals.income / 100).toFixed(2)}</p>
               </div>
             </CardContent>
@@ -332,7 +332,7 @@ const Accounts = () => {
                 <DollarSign className="w-6 h-6 text-red-600" />
               </div>
               <div>
-                <p className="text-sm text-muted">Expense</p>
+                <p className="text-sm text-muted">Withdrawal</p>
                 <p className="text-xl font-semibold">${(totals.expense / 100).toFixed(2)}</p>
               </div>
             </CardContent>
@@ -344,7 +344,7 @@ const Accounts = () => {
                 <CardIcon className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <p className="text-sm text-muted">Total Saving</p>
+                <p className="text-sm text-muted">Total saving</p>
                 <p className="text-xl font-semibold">${((totals.income - totals.expense) / 100).toFixed(2)}</p>
               </div>
             </CardContent>
@@ -352,11 +352,41 @@ const Accounts = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+          <div className="lg:col-span-4 space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <select
+                  value={selectedCard.type}
+                  onChange={(e) => {
+                    const selected = cardAccounts.find(card => card.type === e.target.value);
+                    if (selected) setSelectedCard(selected);
+                  }}
+                  className="w-full p-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {cardAccounts.map((card) => (
+                    <option key={card.type} value={card.type}>
+                      {card.type}
+                    </option>
+                  ))}
+                </select>
+                <CreditAccount
+                  balance={selectedCard.balance}
+                  cardHolder={selectedCard.cardHolder}
+                  cardNumber={selectedCard.cardNumber}
+                  expiryDate={selectedCard.expiryDate}
+                  Active={selectedCard.Active}
+                  CardType={selectedCard.type}
+                  currency={selectedCard.type === "Foreign currency account" ? "£" : "$"}
+                />
+              </CardContent>
+            </Card>
+          </div>
           <div className="lg:col-span-8">
             <Card className="lg:w-full mb-6 h-[370px]">
               <CardContent className="p-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-semibold">Transaction History</h2>
+                  <h2 className="text-lg font-semibold">Transaction history</h2>
                 </div>
                 <div className="space-y-4 h-[250px] overflow-y-auto">
                   {filteredTransactions.map((transaction) => (
@@ -395,41 +425,12 @@ const Accounts = () => {
               </CardContent>
             </Card>
           </div>
-
-          <div className="lg:col-span-4 space-y-6">
-            <Card>
-              <CardContent className="p-6">
-                <select
-                  value={selectedCard.type}
-                  onChange={(e) => {
-                    const selected = cardAccounts.find(card => card.type === e.target.value);
-                    if (selected) setSelectedCard(selected);
-                  }}
-                  className="w-full p-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {cardAccounts.map((card) => (
-                    <option key={card.type} value={card.type}>
-                      {card.type}
-                    </option>
-                  ))}
-                </select>
-                <CreditAccount
-                  balance={selectedCard.balance}
-                  cardHolder={selectedCard.cardHolder}
-                  cardNumber={selectedCard.cardNumber}
-                  expiryDate={selectedCard.expiryDate}
-                  Active={selectedCard.Active}
-                  CardType={selectedCard.type}
-                />
-              </CardContent>
-            </Card>
-          </div>
         </div>
 
         <Card className="w-full mt-6">
           <CardContent className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-semibold">Balance Trend</h2>
+              <h2 className="text-lg font-semibold">Balance trend</h2>
               <select
                 value={selectedTimeRange}
                 onChange={(e) => setSelectedTimeRange(e.target.value)}

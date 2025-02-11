@@ -112,19 +112,19 @@ const MarketAnalysisTable: React.FC = () => (
     <table className="w-full">
       <thead>
         <tr className="text-left text-gray-600">
-          <th className="py-2">Investment Type</th>
+          <th className="py-2">Investment type</th>
           <th>Value</th>
-          <th>YTD Return</th>
-          <th>Risk Level</th>
+          <th>YTD return</th>
+          <th>Risk level</th>
         </tr>
       </thead>
       <tbody>
         {[
-          { sector: 'US Stocks', marketCap: '$28,500', return: '+15%', risk: 'Medium' },
+          { sector: 'US stocks', marketCap: '$28,500', return: '+15%', risk: 'Medium' },
           { sector: 'Bonds', marketCap: '$15,200', return: '+4.2%', risk: 'Low' },
           { sector: 'International', marketCap: '$21,300', return: '+9.8%', risk: 'Medium' },
           { sector: 'Crypto', marketCap: '$9,800', return: '-12%', risk: 'High' },
-          { sector: 'Real Estate', marketCap: '$7,500', return: '+6.5%', risk: 'Medium' },
+          { sector: 'Real estate', marketCap: '$7,500', return: '+6.5%', risk: 'Medium' },
         ].map((sector, index) => (
           <tr key={index} className="border-t">
             <td className="py-3 font-medium">{sector.sector}</td>
@@ -154,7 +154,7 @@ const Investments: React.FC = () => {
     datasets: [
       {
         type: 'bar' as const,
-        label: 'Monthly Investment',
+        label: 'Monthly investment',
         data: [1.2, 1.5, 1.8, 1.4, 2.0, 2.2, 1.8, 2.5, 2.8, 3.0, 2.7, 3.2],
         backgroundColor: 'rgba(34, 197, 94, 0.2)',
         borderColor: 'rgba(34, 197, 94, 0.8)',
@@ -164,7 +164,7 @@ const Investments: React.FC = () => {
       },
       {
         type: 'line' as const,
-        label: 'Portfolio Value',
+        label: 'Portfolio value',
         data: [15.2, 16.8, 18.1, 17.9, 19.5, 21.8, 23.2, 25.5, 27.8, 29.1, 31.4, 33.8],
         borderColor: '#EA580C',
         backgroundColor: 'rgba(234, 88, 12, 0.1)',
@@ -231,7 +231,7 @@ const Investments: React.FC = () => {
         position: 'left',
         title: {
           display: true,
-          text: 'Monthly Investment (Billions $)',
+          text: 'Monthly investment (Billions $)',
           color: '#22C55E',
           font: {
             weight: 'bold',
@@ -295,24 +295,24 @@ const Investments: React.FC = () => {
   };
 
   return (
-    <Layout title="Investment Portfolio">
+    <Layout title="Investment portfolio">
       <div className="p-4 sm:p-6 bg-gray-50 min-h-screen">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
           <InvestmentCard
             icon="💼"
-            title="Total Portfolio Value"
+            title="Total portfolio value"
             value="$82,500"
             subtitle="+12.5% YTD"
           />
           <InvestmentCard
             icon="📈"
-            title="Total Returns"
+            title="Total returns"
             value="$12,300"
             subtitle="+8.3% YTD"
           />
           <InvestmentCard
             icon="📊"
-            title="Portfolio Performance"
+            title="Portfolio performance"
             value="+15.80%"
             subtitle="Annual Return"
           />
@@ -320,12 +320,12 @@ const Investments: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Investment Portfolio</h3>
+            <h3 className="text-lg font-semibold mb-4">Investment portfolio</h3>
             <div className="space-y-4">
               <InvestmentPortfolioItem
                 sector="STK"
-                name="US Stock Market"
-                category="Index Funds"
+                name="US stock market"
+                category="Index funds"
                 value="$37,125"
                 allocation="45%"
                 performance="+16.5% YTD"
@@ -333,8 +333,8 @@ const Investments: React.FC = () => {
               />
               <InvestmentPortfolioItem
                 sector="BND"
-                name="Bond Portfolio"
-                category="Fixed Income"
+                name="Bond portfolio"
+                category="Fixed income"
                 value="$20,625"
                 allocation="25%"
                 performance="+4.2% YTD"
@@ -342,8 +342,8 @@ const Investments: React.FC = () => {
               />
               <InvestmentPortfolioItem
                 sector="INT"
-                name="International Stocks"
-                category="Emerging Markets"
+                name="International stocks"
+                category="Emerging markets"
                 value="$16,500"
                 allocation="20%"
                 performance="+9.8% YTD"
@@ -352,7 +352,7 @@ const Investments: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Market Analysis</h3>
+            <h3 className="text-lg font-semibold mb-4">Market analysis</h3>
             <div className="overflow-x-auto">
               <MarketAnalysisTable />
             </div>
@@ -361,13 +361,13 @@ const Investments: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 mt-6">
           <div className="bg-white rounded-xl p-0 sm:p-4">
-            <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio Performance</h3>
+            <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio performance</h3>
             <div className="w-full h-[250px] sm:h-[300px]">
               <Chart type='bar' data={portfolioPerformance} options={performanceChartOptions} />
             </div>
           </div>
           <div className="bg-white rounded-xl p-0 sm:p-4">
-            <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio Growth</h3>
+            <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio growth</h3>
             <div className="w-full h-[250px] sm:h-[300px]">
               <Line data={sectorAllocation} options={chartOptions} />
             </div>

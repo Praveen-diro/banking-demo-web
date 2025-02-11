@@ -18,7 +18,7 @@ const weeklyActivityData = [
 
 const expenseData = [
   { name: 'Entertainment', value: 30, color: '#2F2E5F' },
-  { name: 'Bill Expense', value: 15, color: '#FF8042' },
+  { name: 'Bill expense', value: 15, color: '#FF8042' },
   { name: 'Investment', value: 20, color: '#FF00FF' },
   { name: 'Others', value: 35, color: '#3B3BF9' },
 ];
@@ -26,23 +26,23 @@ const expenseData = [
 const recentTransactions = [
   {
     icon: "💳",
-    name: "Deposit from my Card",
+    name: "Deposit From My Card",
     date: "28 January 2021",
-    amount: -850,
+    amount: -85000,
     type: "card"
   },
   {
     icon: "🅿️",
-    name: "Deposit Paypal",
+    name: "Deposit PayPal",
     date: "25 January 2021",
-    amount: 2500,
+    amount: 250003,
     type: "paypal"
   },
   {
     icon: "👤",
     name: "Jemi Wilson",
     date: "21 January 2021",
-    amount: 5400,
+    amount: 540032,
     type: "transfer"
   }
 ];
@@ -67,16 +67,16 @@ const recentTransactionsByType = {
   Escrow: [
     {
       id: "TX-001",
-      description: "Escrow Payment",
-      amount: 250000,
+      description: "Escrow payment",
+      amount: 25000000,
       date: "2024-03-15",
       type: "credit",
       accountNumber: "3778232389"
     },
     {
       id: "TX-002",
-      description: "Escrow Deposit",
-      amount: 180000,
+      description: "Escrow deposit",
+      amount: 18000000,
       date: "2024-03-12",
       type: "debit",
       accountNumber: "3778232389"
@@ -85,16 +85,16 @@ const recentTransactionsByType = {
   "Foreign account": [
     {
       id: "TX-003",
-      description: "International Transfer",
-      amount: 320000,
+      description: "International transfer",
+      amount: 32000000,
       date: "2024-03-14",
       type: "credit",
       accountNumber: "8712083309"
     },
     {
       id: "TX-004",
-      description: "Foreign Exchange",
-      amount: 150000,
+      description: "Foreign exchange",
+      amount: 15000000,
       date: "2024-03-11",
       type: "debit",
       accountNumber: "8712083309"
@@ -103,16 +103,16 @@ const recentTransactionsByType = {
   "Checking account": [
     {
       id: "TX-005",
-      description: "Direct Deposit",
-      amount: 450000,
+      description: "Direct deposit",
+      amount: 45000000,
       date: "2024-03-13",
       type: "credit",
       accountNumber: "8712434432"
     },
     {
       id: "TX-006",
-      description: "ATM Withdrawal",
-      amount: 75000,
+      description: "Atm withdrawal",
+      amount: 7500000,
       date: "2024-03-10",
       type: "debit",
       accountNumber: "8712434432"
@@ -136,11 +136,11 @@ const Index = () => {
                onClick={() => handleCardClick("Escrow")}>
             <h2 className="text-xl font-semibold mb-4">Accounts</h2>
             <CreditAccount
-              balance={5100344}
-              cardHolder="Coforge Inc."
+              balance={18003443}
+              cardHolder="Coforge Inc"
               cardNumber="3778232389"
               expiryDate="12/22"
-              CardType="Escrow"
+              CardType="Checking account"
             />
           </div>
 
@@ -148,11 +148,11 @@ const Index = () => {
           <div className="w-full mt-11 cursor-pointer transition-transform hover:scale-[1.02]"
                onClick={() => handleCardClick("Foreign account")}>
             <CreditAccount2
-              balance={2143434}
-              cardHolder="Enrica foges"
+              balance={21434342}
+              cardHolder="Coforge Inc"
               cardNumber="8712083309"
               expiryDate="12/22"
-              CardType="Foreign account"
+              CardType="Escrow account"
             />
           </div>
 
@@ -160,11 +160,12 @@ const Index = () => {
           <div className="w-full mt-11 cursor-pointer transition-transform hover:scale-[1.02]"
                onClick={() => handleCardClick("Checking account")}>
             <CreditAccount2
-              balance={2100567}
-              cardHolder="MNEWave Inc."
+              balance={70005673}
+              cardHolder="Coforge Inc"
               cardNumber="8712434432"
               expiryDate="12/22"
-              CardType="Checking account"
+              CardType="Foreign currency "
+              currency="£"
             />
           </div>
         </div>
@@ -173,7 +174,7 @@ const Index = () => {
           <Card className="p-6 hover:shadow-lg transition-all duration-300 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-[#1d1E9C] to-blue-500 bg-clip-text text-transparent">
-                Recent Transactions
+                Recent transactions
               </h2>
             </div>
             <div className="space-y-4">
@@ -206,7 +207,7 @@ const Index = () => {
                     </div>
                   </div>
                   <div className={`font-semibold ${transaction.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
-                    {transaction.type === 'credit' ? '+' : '-'}${(transaction.amount / 100).toFixed(2)}
+                    {transaction.type === 'credit' ? '+' : '-'}${(transaction.amount / 100).toLocaleString()}
                   </div>
                 </div>
               ))}
@@ -219,7 +220,7 @@ const Index = () => {
           <Card className="p-6 hover:shadow-lg transition-all duration-300 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-[#1d1E9C] to-blue-500 bg-clip-text text-transparent">
-                Weekly Activity
+                Weekly activity
               </h2>
             </div>
             <div className="h-[300px]">
@@ -238,7 +239,7 @@ const Index = () => {
           <Card className="p-6 hover:shadow-lg transition-all duration-300 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-[#1d1E9C] to-blue-500 bg-clip-text text-transparent">
-                Balance Trend
+                Balance trend
               </h2>
             </div>
             <div className="h-[300px]">
@@ -268,7 +269,7 @@ const Index = () => {
           <Card className="p-6 hover:shadow-lg transition-all duration-300 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-[#1d1E9C] to-blue-500 bg-clip-text text-transparent">
-                Expense Distribution
+                Expense distribution
               </h2>
             </div>
             <div className="h-[300px] flex items-center justify-center">
@@ -297,24 +298,24 @@ const Index = () => {
           <Card className="p-6 hover:shadow-lg transition-all duration-300 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold bg-gradient-to-r from-[#1d1E9C] to-blue-500 bg-clip-text text-transparent">
-                Quick Stats
+                Quick stats
               </h2>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">Total Balance</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm text-gray-600">Total balance</p>
+                <p className="text-2xl font-semibold">
                   ${((5100344 + 2143434 + 2100567) / 100).toLocaleString()}
                 </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">Monthly Transactions</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm text-gray-600">Monthly transactions</p>
+                <p className="text-2xl font-semibold">
                   {Object.values(recentTransactionsByType).flat().length}
                 </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">Total Credits</p>
+                <p className="text-sm text-gray-600">Total credits</p>
                 <p className="text-2xl font-semibold text-green-600">
                   ${(Object.values(recentTransactionsByType)
                     .flat()
@@ -323,7 +324,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">Total Debits</p>
+                <p className="text-sm text-gray-600">Total debits</p>
                 <p className="text-2xl font-semibold text-red-600">
                   ${(Object.values(recentTransactionsByType)
                     .flat()

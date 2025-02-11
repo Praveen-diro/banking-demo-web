@@ -72,16 +72,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [isAuthenticated]);
 
   const login = async (email: string, password: string) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    if (email === VALID_CREDENTIALS.email && password === VALID_CREDENTIALS.password) {
+    try {
+      // For demo purposes, always authenticate
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
       updateLastActivity();
       return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
     }
-    return false;
   };
 
   const logout = () => {

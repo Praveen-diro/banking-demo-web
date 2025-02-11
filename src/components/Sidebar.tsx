@@ -1,5 +1,6 @@
-import { Home, Receipt, Users, PieChart, CreditCard, Wallet, Settings, HelpCircle } from "lucide-react";
+import { Home, Receipt, Users, PieChart, CreditCard, Wallet, Settings, HelpCircle, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SidebarProps {
   onClose?: () => void;
@@ -17,6 +18,7 @@ const menuItems = [
 
 export const Sidebar = ({ onClose }: SidebarProps) => {
   const location = useLocation();
+  const { logout } = useAuth();
 
   const handleClick = () => {
     if (onClose) {
@@ -58,6 +60,18 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
               </Link>
             );
           })}
+          
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              handleClick();
+              logout();
+            }}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-red-500 hover:bg-red-50 hover:text-red-600 mt-8"
+          >
+            <LogOut size={20} />
+            <span>Logout</span>
+          </button>
         </nav>
       </div>
     </aside>

@@ -25,7 +25,7 @@ import {
 
 const loanPortfolioData = [
   { 
-    category: 'Home Loan', 
+    category: 'Equipment loans ', 
     value: 45, 
     amount: '450,000', 
     color: '#2563EB',
@@ -36,7 +36,7 @@ const loanPortfolioData = [
     }
   },
   { 
-    category: 'Car Loan', 
+    category: 'Overdraft ', 
     value: 25, 
     amount: '25,000', 
     color: '#7C3AED',
@@ -47,7 +47,7 @@ const loanPortfolioData = [
     }
   },
   { 
-    category: 'Personal Loan', 
+    category: 'SBA loans ', 
     value: 20, 
     amount: '20,000', 
     color: '#EC4899',
@@ -58,7 +58,7 @@ const loanPortfolioData = [
     }
   },
   { 
-    category: 'Education Loan', 
+    category: 'Merchant cash advance ', 
     value: 10, 
     amount: '10,000', 
     color: '#F59E0B',
@@ -82,7 +82,7 @@ const monthlyLoanData = [
 const activeLoans = [
   {
     id: 'HL-2023',
-    type: 'Home Loan',
+    type: 'Equipment loans ',
     amount: 450000,
     remaining: 425000,
     term: '240 months',
@@ -93,7 +93,7 @@ const activeLoans = [
   },
   {
     id: 'CL-2024',
-    type: 'Car Loan',
+    type: 'Overdraft ',
     amount: 25000,
     remaining: 22000,
     term: '48 months',
@@ -104,7 +104,7 @@ const activeLoans = [
   },
   {
     id: 'PL-2024',
-    type: 'Personal Loan',
+    type: 'SBA loans ',
     amount: 20000,
     remaining: 18500,
     term: '36 months',
@@ -115,7 +115,7 @@ const activeLoans = [
   },
   {
     id: 'EL-2023',
-    type: 'Education Loan',
+    type: 'Merchant cash advance ',
     amount: 10000,
     remaining: 8000,
     term: '60 months',
@@ -349,7 +349,7 @@ const Loans = () => {
                 <DollarSign className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Loan Amount</p>
+                <p className="text-sm text-gray-600">Total loan amount</p>
                 <p className="text-2xl font-semibold">$505,000</p>
                 <p className="text-xs text-gray-600">Across all active loans</p>
               </div>
@@ -362,7 +362,7 @@ const Loans = () => {
                 <Building2 className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Monthly Payment</p>
+                <p className="text-sm text-gray-600">Monthly payment</p>
                 <p className="text-2xl font-semibold">$4,232</p>
                 <p className="text-xs text-gray-600">Total monthly installments</p>
               </div>
@@ -375,7 +375,7 @@ const Loans = () => {
                 <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Payment Score</p>
+                <p className="text-sm text-gray-600">Payment score</p>
                 <p className="text-2xl font-semibold">100%</p>
                 <p className="text-xs text-green-600">All payments on time</p>
               </div>
@@ -388,7 +388,7 @@ const Loans = () => {
                 <AlertCircle className="w-6 h-6 text-yellow-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Next Payment</p>
+                <p className="text-sm text-gray-600">Next payment</p>
                 <p className="text-2xl font-semibold">$2,850</p>
                 <p className="text-xs text-yellow-600">Due on Apr 5, 2024</p>
               </div>
@@ -399,7 +399,7 @@ const Loans = () => {
         {/* Loan Portfolio Distribution */}
         <div className="w-full">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Loan Distribution</h3>
+            <h3 className="text-lg font-semibold mb-4">Loan distribution</h3>
             <div className="flex flex-col lg:flex-row gap-6">
               <div className="lg:w-1/3">
                 {renderPieChart()}
@@ -445,7 +445,7 @@ const Loans = () => {
         {/* Loan Balance Trends */}
         <div className="w-full">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Loan Balance Trends</h3>
+            <h3 className="text-lg font-semibold mb-4">Loan balance trends</h3>
             <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={loanTrendsData}>
@@ -485,7 +485,7 @@ const Loans = () => {
                   <Area 
                     type="monotone" 
                     dataKey="homeLoan" 
-                    name="Home Loan"
+                    name="Equipment loans "
                     stroke="#2563EB" 
                     fillOpacity={1} 
                     fill="url(#homeLoan)" 
@@ -493,7 +493,7 @@ const Loans = () => {
                   <Area 
                     type="monotone" 
                     dataKey="carLoan" 
-                    name="Car Loan"
+                    name="Overdraft "
                     stroke="#7C3AED" 
                     fillOpacity={1} 
                     fill="url(#carLoan)" 
@@ -501,7 +501,7 @@ const Loans = () => {
                   <Area 
                     type="monotone" 
                     dataKey="personalLoan" 
-                    name="Personal Loan"
+                    name="SBA loans "
                     stroke="#EC4899" 
                     fillOpacity={1} 
                     fill="url(#personalLoan)" 
@@ -509,7 +509,7 @@ const Loans = () => {
                   <Area 
                     type="monotone" 
                     dataKey="educationLoan" 
-                    name="Education Loan"
+                    name="Merchant cash advance "
                     stroke="#F59E0B" 
                     fillOpacity={1} 
                     fill="url(#educationLoan)" 

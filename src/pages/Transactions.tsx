@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Sidebar } from "@/components/Sidebar";
-import { CreditAccount, CreditCard, CreditCardBack } from "@/components/CreditCard";
+import { CreditAccount, CreditCard, CreditCardBack, DummyCard } from "@/components/CreditCard";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { 
   ArrowDownIcon, 
@@ -11,7 +11,7 @@ import {
   Printer,
   Filter,
   Search,
-  Calendar,
+  Calendar as CalendarIcon,
   Loader2
 } from 'lucide-react';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
@@ -22,11 +22,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 import autoTable, { FontStyle } from 'jspdf-autotable';
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 const statements = [
+  // Checking Account Statements - 2024
   {
-    id: "STMT-2024-03",
-    description: "March 2024 Statement",
+    id: "STMT-2024-03-CHK",
+    description: "March 2024 - Checking account monthly statement",
     type: "Checking account",
     accountNumber: "8712434432",
     date: "2024-03-20",
@@ -34,26 +40,27 @@ const statements = [
     downloadUrl: "statements/mar-2024.pdf"
   },
   {
-    id: "STMT-2024-02",
-    description: "February 2024 Statement",
-    type: "Foreign account",
-    accountNumber: "3778232389",
+    id: "STMT-2024-02-CHK",
+    description: "February 2024 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2024-02-20",
     amount: 980000,
     downloadUrl: "statements/feb-2024.pdf"
   },
   {
-    id: "STMT-2024-01",
-    description: "January 2024 Statement",
-    type: "Escrow",
-    accountNumber: "8712083309",
+    id: "STMT-2024-01-CHK",
+    description: "January 2024 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2024-01-20",
     amount: 1750000,
     downloadUrl: "statements/jan-2024.pdf"
   },
+  // Checking Account Statements - 2023
   {
-    id: "STMT-2023-12",
-    description: "December 2023 Statement",
+    id: "STMT-2023-12-CHK",
+    description: "December 2023 - Checking account monthly statement",
     type: "Checking account",
     accountNumber: "8712434432",
     date: "2023-12-20",
@@ -61,26 +68,26 @@ const statements = [
     downloadUrl: "/statements/dec-2023.pdf"
   },
   {
-    id: "STMT-2023-11",
-    description: "November 2023 Statement",
-    type: "Foreign account",
-    accountNumber: "3778232389",
+    id: "STMT-2023-11-CHK",
+    description: "November 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-11-20",
     amount: 1120000,
     downloadUrl: "/statements/nov-2023.pdf"
   },
   {
-    id: "STMT-2023-10",
-    description: "October 2023 Statement",
-    type: "Escrow",
-    accountNumber: "8712083309",
+    id: "STMT-2023-10-CHK",
+    description: "October 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-10-20",
     amount: 2250000,
     downloadUrl: "/statements/oct-2023.pdf"
   },
   {
-    id: "STMT-2023-09",
-    description: "September 2023 Statement",
+    id: "STMT-2023-09-CHK",
+    description: "September 2023 - Checking account monthly statement",
     type: "Checking account",
     accountNumber: "8712434432",
     date: "2023-09-20",
@@ -88,26 +95,26 @@ const statements = [
     downloadUrl: "/statements/sep-2023.pdf"
   },
   {
-    id: "STMT-2023-08",
-    description: "August 2023 Statement",
-    type: "Foreign account",
-    accountNumber: "3778232389",
+    id: "STMT-2023-08-CHK",
+    description: "August 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-08-20",
     amount: 2100000,
     downloadUrl: "/statements/aug-2023.pdf"
   },
   {
-    id: "STMT-2023-07",
-    description: "July 2023 Statement",
-    type: "Escrow",
-    accountNumber: "8712083309",
+    id: "STMT-2023-07-CHK",
+    description: "July 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-07-20",
     amount: 1890000,
     downloadUrl: "/statements/jul-2023.pdf"
   },
   {
-    id: "STMT-2023-06",
-    description: "June 2023 Statement",
+    id: "STMT-2023-06-CHK",
+    description: "June 2023 - Checking account monthly statement",
     type: "Checking account",
     accountNumber: "8712434432",
     date: "2023-06-20",
@@ -115,22 +122,244 @@ const statements = [
     downloadUrl: "/statements/jun-2023.pdf"
   },
   {
-    id: "STMT-2023-05",
-    description: "May 2023 Statement",
-    type: "Foreign account",
-    accountNumber: "3778232389",
+    id: "STMT-2023-05-CHK",
+    description: "May 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-05-20",
     amount: 1950000,
     downloadUrl: "/statements/may-2023.pdf"
   },
   {
-    id: "STMT-2023-04",
-    description: "April 2023 Statement",
-    type: "Escrow",
-    accountNumber: "8712083309",
+    id: "STMT-2023-04-CHK",
+    description: "April 2023 - Checking account monthly statement",
+    type: "Checking account",
+    accountNumber: "8712434432",
     date: "2023-04-20",
     amount: 2450000,
     downloadUrl: "/statements/apr-2023.pdf"
+  },
+
+  // Foreign Currency Account Statements - 2024
+  {
+    id: "STMT-2024-03-FX",
+    description: "March 2024 - Foreign Currency account monthly statement",
+    type: " Foreign Currency account monthly statementncy account",
+    accountNumber: "8712083309",
+    date: "2024-03-20",
+    amount: 1350000,
+    downloadUrl: "statements/mar-2024-fx.pdf"
+  },
+  {
+    id: "STMT-2024-02-FX",
+    description: "February 2024 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2024-02-20",
+    amount: 1180000,
+    downloadUrl: "statements/feb-2024-fx.pdf"
+  },
+  {
+    id: "STMT-2024-01-FX",
+    description: "January 2024 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2024-01-20",
+    amount: 1950000,
+    downloadUrl: "statements/jan-2024-fx.pdf"
+  },
+  // Foreign Currency Account Statements - 2023
+  {
+    id: "STMT-2023-12-FX",
+    description: "December 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-12-20",
+    amount: 990000,
+    downloadUrl: "/statements/dec-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-11-FX",
+    description: "November 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-11-20",
+    amount: 1220000,
+    downloadUrl: "/statements/nov-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-10-FX",
+    description: "October 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-10-20",
+    amount: 2350000,
+    downloadUrl: "/statements/oct-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-09-FX",
+    description: "September 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-09-20",
+    amount: 1675000,
+    downloadUrl: "/statements/sep-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-08-FX",
+    description: "August 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-08-20",
+    amount: 2200000,
+    downloadUrl: "/statements/aug-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-07-FX",
+    description: "July 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-07-20",
+    amount: 1990000,
+    downloadUrl: "/statements/jul-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-06-FX",
+    description: "June 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-06-20",
+    amount: 1750000,
+    downloadUrl: "/statements/jun-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-05-FX",
+    description: "May 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-05-20",
+    amount: 2050000,
+    downloadUrl: "/statements/may-2023-fx.pdf"
+  },
+  {
+    id: "STMT-2023-04-FX",
+    description: "April 2023 - Foreign Currency account monthly statement",
+    type: "Foreign currency account",
+    accountNumber: "8712083309",
+    date: "2023-04-20",
+    amount: 2550000,
+    downloadUrl: "/statements/apr-2023-fx.pdf"
+  },
+
+  // Escrow Account Statements - 2024
+  {
+    id: "STMT-2024-03-ESC",
+    description: "March 2024 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2024-03-20",
+    amount: 1450000,
+    downloadUrl: "statements/mar-2024-esc.pdf"
+  },
+  {
+    id: "STMT-2024-02-ESC",
+    description: "February 2024 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2024-02-20",
+    amount: 1280000,
+    downloadUrl: "statements/feb-2024-esc.pdf"
+  },
+  {
+    id: "STMT-2024-01-ESC",
+    description: "January 2024 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2024-01-20",
+    amount: 2050000,
+    downloadUrl: "statements/jan-2024-esc.pdf"
+  },
+  // Escrow Account Statements - 2023
+  {
+    id: "STMT-2023-12-ESC",
+    description: "December 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-12-20",
+    amount: 1090000,
+    downloadUrl: "/statements/dec-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-11-ESC",
+    description: "November 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-11-20",
+    amount: 1320000,
+    downloadUrl: "/statements/nov-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-10-ESC",
+    description: "October 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-10-20",
+    amount: 2450000,
+    downloadUrl: "/statements/oct-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-09-ESC",
+    description: "September 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-09-20",
+    amount: 1775000,
+    downloadUrl: "/statements/sep-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-08-ESC",
+    description: "August 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-08-20",
+    amount: 2300000,
+    downloadUrl: "/statements/aug-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-07-ESC",
+    description: "July 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-07-20",
+    amount: 2090000,
+    downloadUrl: "/statements/jul-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-06-ESC",
+    description: "June 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-06-20",
+    amount: 1850000,
+    downloadUrl: "/statements/jun-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-05-ESC",
+    description: "May 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-05-20",
+    amount: 2150000,
+    downloadUrl: "/statements/may-2023-esc.pdf"
+  },
+  {
+    id: "STMT-2023-04-ESC",
+    description: "April 2023 - Escrow account monthly statement",
+    type: "Escrow account",
+    accountNumber: "3778232389",
+    date: "2023-04-20",
+    amount: 2650000,
+    downloadUrl: "/statements/apr-2023-esc.pdf"
   }
 ];
 
@@ -144,12 +373,24 @@ const transactionData = [
 ];
 
 const downloadTransactionReport = (type: string, startDate?: Date, endDate?: Date) => {
-  // This is a placeholder function - in a real app, this would generate and download a PDF
-  console.log(`Downloading ${type} transaction report...`);
-  if (startDate && endDate) {
-    console.log(`For period: ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`);
-  }
-};
+  const doc = new jsPDF()
+  autoTable(doc, {
+    head: [['Statement ID', 'Description', 'Type', 'Account Number', 'Date', 'Amount']],
+    body: generateRandomTransactions(statements[0]).map(t => [
+      t.id,
+      t.description,
+      t.type,
+      t.accountNumber,
+      t.date,
+      `$${t.amount.toLocaleString()}`
+    ]),
+    styles: { font: 'helvetica' as FontStyle },
+  })
+
+  const currentDate = format(new Date(), 'yyyy-MM-dd')
+  const fileName = `${type.replace(/\s+/g, '_')}_Statement_${currentDate}.pdf`
+  doc.save(fileName)
+}
 
 const transactionTypes = [
   'All Types',
@@ -180,7 +421,7 @@ const transactionsByStatement = {
     { date: "2024-02-05", description: "Currency Exchange", amount: -180000, type: "debit" }
   ],
   "STMT-2024-01": [
-    { date: "2024-01-28", description: "Escrow Payment", amount: 850000, type: "credit" },
+    { date: "2024-01-28", description: "Escrow account Payment", amount: 850000, type: "credit" },
     { date: "2024-01-25", description: "Property Tax", amount: -420000, type: "debit" },
     { date: "2024-01-20", description: "Insurance Premium", amount: -180000, type: "debit" },
     { date: "2024-01-15", description: "Maintenance Fee", amount: -75000, type: "debit" },
@@ -203,7 +444,7 @@ const transactionsByStatement = {
   "STMT-2023-10": [
     { date: "2023-10-30", description: "Property Sale", amount: 1500000, type: "credit" },
     { date: "2023-10-25", description: "Legal Fee", amount: -250000, type: "debit" },
-    { date: "2023-10-20", description: "Escrow Deposit", amount: 850000, type: "credit" },
+    { date: "2023-10-20", description: "Escrow account Deposit", amount: 850000, type: "credit" },
     { date: "2023-10-15", description: "Title Insurance", amount: -180000, type: "debit" },
     { date: "2023-10-10", description: "Processing Fee", amount: -45000, type: "debit" }
   ],
@@ -225,7 +466,7 @@ const transactionsByStatement = {
     { date: "2023-07-28", description: "Trust Deposit", amount: 1200000, type: "credit" },
     { date: "2023-07-25", description: "Property Tax", amount: -450000, type: "debit" },
     { date: "2023-07-20", description: "Insurance Payment", amount: -180000, type: "debit" },
-    { date: "2023-07-15", description: "Escrow Credit", amount: 580000, type: "credit" },
+    { date: "2023-07-15", description: "Escrow account Credit", amount: 580000, type: "credit" },
     { date: "2023-07-10", description: "Management Fee", amount: -75000, type: "debit" }
   ],
   "STMT-2023-06": [
@@ -243,7 +484,7 @@ const transactionsByStatement = {
     { date: "2023-05-10", description: "Exchange Rate Gain", amount: 420000, type: "credit" }
   ],
   "STMT-2023-04": [
-    { date: "2023-04-30", description: "Escrow Settlement", amount: 1500000, type: "credit" },
+    { date: "2023-04-30", description: "Escrow account Settlement", amount: 1500000, type: "credit" },
     { date: "2023-04-25", description: "Legal Services", amount: -350000, type: "debit" },
     { date: "2023-04-20", description: "Property Deposit", amount: 950000, type: "credit" },
     { date: "2023-04-15", description: "Insurance Premium", amount: -220000, type: "debit" },
@@ -268,30 +509,62 @@ const generateRandomTransactions = (statement: typeof statements[0]) => {
   };
 
   return Array.from({ length: 8 }, (_, index) => ({
+    id: `TX-${statement.id}-${index + 1}`,
     date: generateRandomDate(statement.date),
     description: descriptions[Math.floor(Math.random() * descriptions.length)],
     amount: generateRandomAmount(),
-    type: Math.random() > 0.5 ? "credit" : "debit"
+    type: Math.random() > 0.5 ? "credit" : "debit",
+    accountNumber: statement.accountNumber
   })).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
+
+// Add All Accounts option to cardAccounts array at the top
+const cardAccounts = [
+  {
+    type: "Checking account",
+    balance: 18003443,
+    cardHolder: "Coforge Inc",
+    cardNumber: "8712434432",
+    expiryDate: "12/22",
+    Active: "active"
+  },
+  {
+    type: "Escrow account",
+    balance: 21434342,
+    cardHolder: "Coforge Inc",
+    cardNumber: "3778232389",
+    expiryDate: "12/22",
+    Active: "Active"
+  },
+  {
+    type: "Foreign currency account",
+    balance: 70005673,
+    cardHolder: "Coforge Inc",
+    cardNumber: "8712083309",
+    expiryDate: "12/22",
+    Active: "active"
+  }
+];
 
 const Transactions = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [selectedAccountType, setSelectedAccountType] = useState(location.state?.selectedAccount || 'All Types');
+  const [selectedCard, setSelectedCard] = useState(
+    cardAccounts.find(card => card.type === location.state?.selectedAccount) || cardAccounts[0]
+  );
   
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState('Custom Period');
-  const [typeFilter, setTypeFilter] = useState(location.state?.selectedAccount || 'All Types');
-  const [currentPage, setCurrentPage] = useState(1);
   const [showCustomPeriod, setShowCustomPeriod] = useState(true);
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
-  const [dateError, setDateError] = useState<string>('');
-  const itemsPerPage = 5;
-
-  // Add loading state for downloads
+  const [startDate, setStartDate] = useState<Date | undefined>();
+  const [endDate, setEndDate] = useState<Date | undefined>();
+  const [dateError, setDateError] = useState('');
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState(selectedCard.type);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const [startDateOpen, setStartDateOpen] = useState(false);
+  const [endDateOpen, setEndDateOpen] = useState(false);
 
   const formatDisplayDate = (dateStr: string): string => {
     const date = new Date(dateStr);
@@ -355,44 +628,45 @@ const Transactions = () => {
     }
     
     switch (filterType) {
-      case 'Last 7 Days': {
+      case 'Last 7 days': {
         const sevenDaysAgo = new Date(now);
         sevenDaysAgo.setDate(now.getDate() - 7);
         sevenDaysAgo.setHours(0, 0, 0, 0);
         return transactionDate >= sevenDaysAgo && transactionDate <= now;
       }
-      case 'Last Month': {
+      case 'Last month': {
         const monthAgo = new Date(now);
         monthAgo.setMonth(now.getMonth() - 1);
         monthAgo.setHours(0, 0, 0, 0);
         return transactionDate >= monthAgo && transactionDate <= now;
       }
-      case 'Last Year': {
+      case 'Last year': {
         const yearAgo = new Date(now);
         yearAgo.setFullYear(now.getFullYear() - 1);
         yearAgo.setHours(0, 0, 0, 0);
         return transactionDate >= yearAgo && transactionDate <= now;
       }
-      case 'All Time':
+      case 'All time':
       default:
         return true;
     }
   };
 
-  // Add handler for type filter changes
-  const handleTypeFilterChange = (value: string) => {
-    setTypeFilter(value);
-    setSelectedAccountType(value);
-    // Update the URL state without redirecting
+  // Update handleTypeFilterChange
+  const handleTypeFilterChange = (type: string) => {
+    const card = cardAccounts.find(card => card.type === type) || cardAccounts[0];
+    setSelectedCard(card);
+    setTypeFilter(card.type);
     navigate('.', { 
-      state: { selectedAccount: value !== 'All Types' ? value : null },
+      state: { selectedAccount: card.type },
       replace: true 
     });
   };
 
-  // Filter transactions based on selected criteria and account type
+  // Update filteredStatements to group by month
   const filteredStatements = useMemo(() => {
-    return statements.filter(statement => {
+    // First filter statements based on search and date range
+    const filtered = statements.filter(statement => {
       const matchesSearch = 
         statement.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         statement.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -400,9 +674,27 @@ const Transactions = () => {
 
       const matchesDate = isWithinDateRange(statement.date, dateFilter);
       
-      const matchesType = typeFilter === 'All Types' || statement.type === typeFilter;
+      const matchesType = statement.type === typeFilter;
 
       return matchesSearch && matchesDate && matchesType;
+    });
+
+    // Sort statements by date in descending order and group by month
+    return filtered.sort((a, b) => {
+      // First sort by date in descending order
+      const dateComparison = new Date(b.date).getTime() - new Date(a.date).getTime();
+      
+      if (dateComparison === 0) {
+        // If dates are the same, sort by account type in a specific order
+        const typeOrder = {
+          "Checking account": 1,
+          " Foreign Currency account monthly statementncy account": 2,
+          "Escrow account": 3
+        };
+        return (typeOrder[a.type] || 0) - (typeOrder[b.type] || 0);
+      }
+      
+      return dateComparison;
     });
   }, [searchTerm, dateFilter, typeFilter, startDate, endDate]);
 
@@ -421,16 +713,16 @@ const Transactions = () => {
     setDateFilter(value);
     setShowCustomPeriod(value === 'Custom Period');
     if (value !== 'Custom Period') {
-      setStartDate('');
-      setEndDate('');
+      setStartDate(undefined);
+      setEndDate(undefined);
       setDateError('');
     }
     setCurrentPage(1);
   };
 
-  const handleStartDateChange = (value: string) => {
-    setStartDate(value);
-    if (endDate && !validateDateRange(value, endDate)) {
+  const handleStartDateChange = (date: Date | undefined) => {
+    setStartDate(date);
+    if (endDate && date && date > endDate) {
       setDateError('Start date must be before or equal to end date');
     } else {
       setDateError('');
@@ -438,9 +730,9 @@ const Transactions = () => {
     setCurrentPage(1);
   };
 
-  const handleEndDateChange = (value: string) => {
-    setEndDate(value);
-    if (startDate && !validateDateRange(startDate, value)) {
+  const handleEndDateChange = (date: Date | undefined) => {
+    setEndDate(date);
+    if (startDate && date && startDate > date) {
       setDateError('End date must be after or equal to start date');
     } else {
       setDateError('');
@@ -456,220 +748,110 @@ const Transactions = () => {
       // Create new PDF document
       const doc = new jsPDF();
       
-      // Add light header background
-      doc.setFillColor(240, 242, 245);
-      doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
-      doc.setFillColor(220, 222, 225);
-      doc.rect(0, 40, doc.internal.pageSize.width, 2, 'F');
+      // Bank Information (Left Column)
+      doc.setFontSize(16);
+      doc.text('Bank of Little Rock', 15, 20);
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('123 Main Street', 15, 30);
+      doc.text('Little Rock, AR 72201', 15, 35);
+      doc.text('United States', 15, 40);
 
-      // Add bank logo
-      doc.addImage('/bank_logo.png', 'PNG', 20, 10, 45, 25);
-      
-      // Add subtitle
-      doc.setTextColor(75, 85, 99);
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "italic");
-      doc.text("Your Community Banking Partner", 70, 25);
-
-      // Add statement details
+      // Account Statement Title
       doc.setFontSize(14);
-      doc.setTextColor(0);
-      doc.setFont("helvetica", "bold");
-      doc.text("STATEMENT DETAILS", 20, 60);
-      
-      doc.setDrawColor(29, 30, 156);
-      doc.setLineWidth(0.5);
-      doc.line(20, 62, 90, 62);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Account Statement', 15, 55);
 
-      // Add statement info
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(80, 80, 80);
-      
-      const detailsY = 75;
-      const col1X = 20;
-      const col2X = 120;
-      
-      doc.text("Statement ID:", col1X, detailsY);
-      doc.text("Account Type:", col1X, detailsY + 10);
-      doc.text("Account Number:", col1X, detailsY + 20);
-      doc.text("Period:", col1X, detailsY + 30);
+      // Customer Information
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Coforge Inc', 15, 65);
+      doc.text('456 Corporate Drive', 15, 70);
+      doc.text('New York, NY 10001', 15, 75);
+      doc.text('United States', 15, 80);
 
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(40, 40, 40);
-      doc.text(statement.id, col2X, detailsY);
-      doc.text(statement.type, col2X, detailsY + 10);
-      doc.text(statement.accountNumber, col2X, detailsY + 20);
+      // Statement Period and Generation Date
+      doc.setTextColor(0, 0, 0);
+      const startPeriod = statement.id.startsWith('STMT-CUSTOM-')
+        ? format(startDate, "MMMM d, yyyy")
+        : format(new Date(statement.date), "MMMM d, yyyy");
+      const endPeriod = statement.id.startsWith('STMT-CUSTOM-')
+        ? format(endDate, "MMMM d, yyyy")
+        : format(new Date(statement.date), "MMMM d, yyyy");
+      
+      doc.text(`Statement Period: ${startPeriod} - ${endPeriod}`, 15, 95);
+      doc.text(`Generated on: ${format(new Date(), "MMMM d, yyyy")}`, 120, 95);
 
-      // Format and display the date range for custom period
-      const periodText = statement.id.startsWith('STMT-CUSTOM-')
-        ? `${new Date(startDate).toLocaleDateString()} - ${new Date(endDate).toLocaleDateString()}`
-        : new Date(statement.date).toLocaleDateString();
-      doc.text(periodText, col2X, detailsY + 30);
+      // Account Details and Balance Summary
+      doc.text(statement.type, 15, 110);
+      doc.text(`Opening Balance: $${(statement.amount / 100).toFixed(2)}`, 120, 110);
+      doc.text(statement.accountNumber, 15, 115);
+      doc.text(`Closing Balance: $${((statement.amount + 50000) / 100).toFixed(2)}`, 120, 115);
 
-      // Generate transactions based on date range for custom period
-      let transactions;
-      if (statement.id.startsWith('STMT-CUSTOM-')) {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        
-        // Generate transactions within the selected date range
-        transactions = Array.from({ length: 8 }, () => {
-          const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-          return {
-            date: randomDate.toISOString().split('T')[0],
-            description: [
-              "Salary Deposit", "Utility Payment", "Online Transfer", "Investment Return", 
-              "ATM Withdrawal", "Wire Transfer", "Service Charge", "Interest Credit"
-            ][Math.floor(Math.random() * 8)],
-            amount: Math.floor(Math.random() * 1000000) + 50000,
-            type: Math.random() > 0.5 ? "credit" : "debit"
-          };
-        }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      } else {
-        transactions = generateRandomTransactions(statement);
-      }
-      
-      // Calculate totals
-      const totals = transactions.reduce(
-        (acc, tx) => {
-          if (tx.type === 'credit') {
-            acc.credits += tx.amount;
-          } else {
-            acc.debits += Math.abs(tx.amount);
-          }
-          return acc;
-        },
-        { credits: 0, debits: 0 }
-      );
-      
-      // Calculate balances
-      const openingBalance = Math.floor(Math.random() * 1000000) + 500000;
-      const closingBalance = openingBalance + totals.credits - totals.debits;
-      
-      // Add balance summary
-      doc.setFillColor(245, 247, 250);
-      doc.rect(20, 115, 170, 45, 'F');
-      doc.setDrawColor(29, 30, 156);
-      doc.setLineWidth(0.5);
-      doc.rect(20, 115, 170, 45, 'S');
-      
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(29, 30, 156);
-      doc.text("BALANCE SUMMARY", 25, 127);
-      
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(80, 80, 80);
-      
-      doc.text("Opening Balance:", 25, 140);
-      doc.text("Total Credits:", 25, 150);
-      doc.text("Closing Balance:", 110, 140);
-      doc.text("Total Debits:", 110, 150);
-      
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(40, 40, 40);
-      doc.text(`$${(openingBalance / 100).toLocaleString()}`, 85, 140);
-      doc.setTextColor(46, 124, 46);
-      doc.text(`+$${(totals.credits / 100).toLocaleString()}`, 85, 150);
-      doc.setTextColor(40, 40, 40);
-      doc.text(`$${(closingBalance / 100).toLocaleString()}`, 170, 140);
-      doc.setTextColor(180, 40, 40);
-      doc.text(`-$${(totals.debits / 100).toLocaleString()}`, 170, 150);
-      
-      // Add transactions table
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(29, 30, 156);
-      doc.text("TRANSACTION DETAILS", 20, 180);
-      doc.setDrawColor(29, 30, 156);
-      doc.line(20, 182, 120, 182);
+      // Get transactions
+      const transactions = generateRandomTransactions(statement);
 
-      // Generate table data
-      const tableData = transactions.map(tx => {
-        const uniqueAccountNo = `${Math.floor(Math.random() * 9) + 1}${Math.random().toString().slice(2, 11)}`;
-        
-        return [
-          new Date(tx.date).toLocaleDateString(),
-          tx.description,
-          uniqueAccountNo,
-          tx.type === 'credit' 
-            ? { content: `+$${(tx.amount / 100).toLocaleString()}`, styles: { textColor: [46, 124, 46] } }
-            : { content: `-$${(Math.abs(tx.amount) / 100).toLocaleString()}`, styles: { textColor: [180, 40, 40] } },
-          { content: tx.type.toUpperCase(), styles: { fontStyle: 'bold' } }
-        ];
-      });
-      
-      // Add table
+      // Add transactions table using autoTable
       autoTable(doc, {
-        startY: 190,
-        head: [['Date', 'Description', 'Account No.', 'Amount', 'Type']],
-        body: tableData,
-        theme: 'grid',
+        startY: 130,
+        head: [['Date', 'Description', 'Amount', 'Type', 'Balance']],
+        body: transactions.map((tx, index) => {
+          let runningBalance = statement.amount;
+          if (index > 0) {
+            runningBalance = transactions
+              .slice(0, index)
+              .reduce((balance, t) => 
+                t.type === 'credit' ? balance + t.amount : balance - t.amount, 
+                statement.amount
+              );
+          }
+          
+          return [
+            format(new Date(tx.date), "MM/dd/yyyy"),
+            tx.description,
+            tx.type === 'credit' ? 
+              `+$${(tx.amount / 100).toFixed(2)}` : 
+              `-$${(tx.amount / 100).toFixed(2)}`,
+            tx.type.charAt(0).toUpperCase() + tx.type.slice(1),
+            `$${(runningBalance / 100).toFixed(2)}`
+          ];
+        }),
+        styles: { 
+          fontSize: 9,
+          cellPadding: 5,
+          overflow: 'linebreak',
+          cellWidth: 'wrap'
+        },
         headStyles: {
           fillColor: [29, 30, 156],
-          textColor: 255,
-          fontSize: 12,
-          fontStyle: 'bold',
-          halign: 'center'
-        },
-        styles: {
-          fontSize: 10,
-          cellPadding: 5,
-          lineColor: [220, 220, 220],
-          lineWidth: 0.5
+          textColor: [255, 255, 255],
+          fontStyle: 'bold'
         },
         columnStyles: {
-          0: { cellWidth: 30, halign: 'center' },
-          1: { cellWidth: 55 },
-          2: { cellWidth: 40, halign: 'center' },
-          3: { cellWidth: 30, halign: 'right' },
-          4: { cellWidth: 25, halign: 'center' }
+          0: { cellWidth: 30 }, // Date
+          1: { cellWidth: 55 }, // Description
+          2: { cellWidth: 35, halign: 'right' }, // Amount
+          3: { cellWidth: 25, halign: 'center' }, // Type
+          4: { cellWidth: 35, halign: 'right' } // Balance
         },
         alternateRowStyles: {
           fillColor: [245, 247, 250]
+        },
+        didDrawPage: function(data) {
+          // Add footer on each page
+          doc.setFontSize(8);
+          doc.setTextColor(100, 100, 100);
+          const text = 'This is an official bank statement from Bank of Little Rock. For questions, please contact us at 1-800-555-0123.';
+          const pageHeight = doc.internal.pageSize.height;
+          doc.text(text, 20, pageHeight - 20);
+          doc.text(`Page ${doc.getCurrentPageInfo().pageNumber} of ${doc.getNumberOfPages()}`, 180, pageHeight - 20);
         }
       });
       
-      // Add footer
-      const pageCount = doc.getNumberOfPages();
-      doc.setFontSize(10);
-      doc.setTextColor(100, 100, 100);
-      
-      for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        
-        doc.setDrawColor(220, 220, 220);
-        doc.line(20, doc.internal.pageSize.height - 20, doc.internal.pageSize.width - 20, doc.internal.pageSize.height - 20);
-        
-        doc.text(
-          `Page ${i} of ${pageCount}`,
-          doc.internal.pageSize.width / 2,
-          doc.internal.pageSize.height - 10,
-          { align: 'center' }
-        );
-        
-        const timestamp = new Date().toLocaleString();
-        doc.text(
-          `Generated on: ${timestamp}`,
-          20,
-          doc.internal.pageSize.height - 10
-        );
-        
-        doc.text(
-          'CONFIDENTIAL',
-          doc.internal.pageSize.width - 20,
-          doc.internal.pageSize.height - 10,
-          { align: 'right' }
-        );
-      }
-      
       // Save the PDF
-      const timestamp = new Date().getTime();
       const fileName = statement.id.startsWith('STMT-CUSTOM-')
-        ? `Custom_Statement_${startDate}_to_${endDate}_${timestamp}.pdf`
-        : `${statement.type}_${statement.date}_statement_${timestamp}.pdf`;
+        ? `Statement_${format(startDate, 'yyyy-MM-dd')}_to_${format(endDate, 'yyyy-MM-dd')}.pdf`
+        : `Statement_${statement.date}.pdf`;
       doc.save(fileName);
     } catch (error) {
       console.error('Error generating statement:', error);
@@ -680,20 +862,36 @@ const Transactions = () => {
   };
 
   return (
-    <Layout title={selectedAccountType !== 'All Types' ? `${selectedAccountType} Statements` : "All Statements"}>
+    <Layout title="Statements">
       <div className="p-8">
         <Card className="p-6 hover:shadow-lg transition-all duration-300">
-          {selectedAccountType !== 'All Types' && (
-            <div className="mb-4">
-              <h3 className="text-lg text-blue-600 font-medium">
-                Viewing statements for: {selectedAccountType}
-              </h3>
-            </div>
-          )}
+          {/* Account Selection */}
+          <div className="flex flex-col md:flex-row gap-4 mb-6">
+            <div className="w-full md:w-1/3">
+              <select
+                value={selectedCard.type}
+                onChange={(e) => handleTypeFilterChange(e.target.value)}
+                className="w-full p-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {cardAccounts.map((card) => (
+                  <option key={card.type} value={card.type}>
+                    {card.type}
+                  </option>
+                ))}
+              </select>
+              <CreditAccount
+                balance={selectedCard.balance}
+                cardHolder={selectedCard.cardHolder}
+                cardNumber={selectedCard.cardNumber}
+                expiryDate={selectedCard.expiryDate}
+                CardType={selectedCard.type}
+                Active={selectedCard.Active}
+                currency={selectedCard.type === " Foreign Currency account monthly statementncy account" ? "£" : "$"}
+              />
+          </div>
 
-          {/* Filter Section */}
-          <div className="mb-6 flex flex-wrap gap-4">
-            <div className="flex-1 min-w-[200px]">
+            {/* Search and Date Filter Section */}
+            <div className="flex-1 space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
@@ -704,88 +902,116 @@ const Transactions = () => {
                   className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex gap-4">
-                <select
-                  value={typeFilter}
-                  onChange={(e) => handleTypeFilterChange(e.target.value)}
-                  className="px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="All Types">All Types</option>
-                  <option value="Escrow">Escrow</option>
-                  <option value="Foreign account">Foreign account</option>
-                  <option value="Checking account">Checking account</option>
-                </select>
-
+              
+              <div className="space-y-4">
                 <select
                   value={dateFilter}
                   onChange={(e) => handleDateFilterChange(e.target.value)}
-                  className="px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="All Time">All Time</option>
-                  <option value="Last 7 Days">Last 7 Days</option>
-                  <option value="Last Month">Last Month</option>
-                  <option value="Last Year">Last Year</option>
-                  <option value="Custom Period">Custom Period</option>
+                  <option value="All time">All time</option>
+                  <option value="Last 7 days">Last 7 days</option>
+                  <option value="Last month">Last month</option>
+                  <option value="Last year">Last year</option>
+                  <option value="Custom Period">Custom period</option>
                 </select>
 
+                {/* Custom Period Section */}
                 {showCustomPeriod && (
-                  <div className="flex items-center gap-2">
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => handleStartDateChange(e.target.value)}
-                        max={endDate || undefined}
-                        className="pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="flex-1 relative">
+                        <Popover open={startDateOpen} onOpenChange={setStartDateOpen}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !startDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {startDate ? format(startDate, "PPP") : "Select start date"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0 bg-white border rounded-md shadow-md z-50" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={startDate}
+                              onSelect={(date) => {
+                                handleStartDateChange(date);
+                                setStartDateOpen(false);
+                              }}
+                              initialFocus
+                              className="bg-white rounded-md"
+                            />
+                          </PopoverContent>
+                        </Popover>
                     </div>
-                    <span className="text-gray-500">to</span>
-                    <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <input
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => handleEndDateChange(e.target.value)}
-                        min={startDate || undefined}
-                        className="pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
+                      <div className="flex-1 relative">
+                        <Popover open={endDateOpen} onOpenChange={setEndDateOpen}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !endDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {endDate ? format(endDate, "PPP") : "Select end date"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0 bg-white border rounded-md shadow-md z-50" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={endDate}
+                              onSelect={(date) => {
+                                handleEndDateChange(date);
+                                setEndDateOpen(false);
+                              }}
+                              initialFocus
+                              className="bg-white rounded-md"
+                            />
+                          </PopoverContent>
+                        </Popover>
                     </div>
-                    <button
+                  </div>
+                    <Button
                       onClick={() => {
                         if (!startDate || !endDate) {
-                          alert('Please select both start and end dates');
-                          return;
+                          alert('Please select both start and end dates')
+                          return
                         }
                         const customStatement = {
                           id: `STMT-CUSTOM-${new Date().getTime()}`,
-                          description: `Custom Statement (${startDate} to ${endDate})`,
-                          type: typeFilter === 'All Types' ? 'All Accounts' : typeFilter,
-                          accountNumber: 'ALL',
+                          description: `Custom Statement (${format(startDate, "PPP")} to ${format(endDate, "PPP")})`,
+                          type: selectedCard.type,
+                          accountNumber: selectedCard.cardNumber,
                           date: new Date().toISOString().split('T')[0],
                           amount: 0,
                           downloadUrl: ''
-                        };
-                        handleDownloadStatement(customStatement);
+                        }
+                        handleDownloadStatement(customStatement)
                       }}
                       disabled={!startDate || !endDate || downloadingId !== null}
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full sm:w-auto bg-[#1d1E9C] text-white hover:bg-[#1d1E9C]/90 disabled:bg-[#1d1E9C]/50"
                     >
-                      {downloadingId ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
+                      {downloadingId === 'custom' ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Generating PDF...
+                        </>
                       ) : (
-                        <FileDown className="w-4 h-4" />
+                        <>
+                          <Download className="mr-2 h-4 w-4" />
+                          Generate statement
+                        </>
                       )}
-                      Generate PDF
-                    </button>
-                  </div>
-                )}
+                    </Button>
               </div>
-              {dateError && (
-                <p className="text-sm text-red-500">{dateError}</p>
               )}
+              </div>
             </div>
           </div>
 
@@ -795,7 +1021,7 @@ const Transactions = () => {
                 <TableHead>Statement ID</TableHead>
                 <TableHead>Description</TableHead>
                 <TableHead>Type</TableHead>
-                <TableHead>Account Number</TableHead>
+                <TableHead>Account number</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead className="text-right">Download</TableHead>
               </TableRow>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -11,6 +11,7 @@ const Login: React.FC = () => {
     rememberMe: false,
   });
   const [error, setError] = useState('');
+  const loginSectionRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -26,15 +27,17 @@ const Login: React.FC = () => {
     setError('');
 
     try {
-      const success = await login(formData.email, formData.password);
-      if (success) {
-        navigate('/');
-      } else {
-        setError('Invalid email or password');
-      }
+      // Always succeed login for demo purposes
+      await login(formData.email, formData.password);
+      window.scrollTo({ top: 0 });
+      navigate('/');
     } catch (err) {
       setError('An error occurred during login');
     }
+  };
+
+  const scrollToLogin = () => {
+    loginSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -123,8 +126,11 @@ const Login: React.FC = () => {
                 <button className="bg-white text-[#1d1E9C] px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-medium">
                   Open an Account
                 </button>
-                <button className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-medium">
-                  Learn More
+                <button 
+                  onClick={scrollToLogin}
+                  className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-medium"
+                >
+                  Login
                 </button>
               </div>
             </div>
@@ -142,7 +148,7 @@ const Login: React.FC = () => {
       </div>
 
       {/* Login Section */}
-      <div className="flex-1 flex flex-col md:flex-row">
+      <div ref={loginSectionRef} className="flex-1 flex flex-col md:flex-row scroll-mt-16">
         {/* Left Side - Promotional Content */}
         <div className="hidden md:flex md:w-1/2 p-8 md:p-16 bg-white items-center justify-end">
           <div className="max-w-md">
