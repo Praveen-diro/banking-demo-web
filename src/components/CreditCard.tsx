@@ -159,7 +159,7 @@ export const CreditCard = ({
           <div className="flex justify-between items-start">
             <p className="text-4xl font-semibold">${balance.toLocaleString()}</p>
             <div className="w-12 h-8 flex items-center justify-center">
-              <img src="public/sim-card-chip.png" alt="Card Chip" className="w-9 h-10" />
+              <img src="sim-card-chip.png" alt="Card Chip" className="w-9 h-10" />
             </div>
           </div>
         </div>

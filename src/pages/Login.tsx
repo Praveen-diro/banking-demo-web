@@ -85,10 +85,9 @@ const Login: React.FC = () => {
                */}
                        <div className="flex items-center gap-2 ">
           <img 
-            src="/bank_logo.png"
+            src="bank_logo.png"
             alt="Bank Logo"
             className="w-30 h-14 object-cover mr-5"
-            // onClick={handleClick}
           />
           {/* <span className="text-xl font-bold">Bank Portal</span> */}
         </div>
@@ -138,7 +137,7 @@ const Login: React.FC = () => {
             {/* Right side - Dashboard Preview */}
             <div className="relative">
               <img
-                src="public/dashboard.png"
+                src="dashboard.png"
                 alt="Banking Dashboard Preview"
                 className="w-full rounded-lg shadow-2xl"
               />
@@ -324,7 +323,7 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="public/dashboard.png"
+                  src="dashboard.png"
                   alt="Checking Account Dashboard"
                   className="w-full rounded-lg"
                 />
@@ -348,7 +347,7 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="public/dashboard.png"
+                  src="dashboard.png"
                   alt="Savings Account Dashboard"
                   className="w-full rounded-lg"
                 />
@@ -372,7 +371,7 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="public/dashboard.png"
+                  src="dashboard.png"
                   alt="Investment Dashboard"
                   className="w-full rounded-lg"
                 />

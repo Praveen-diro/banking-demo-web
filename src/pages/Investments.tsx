@@ -1,5 +1,4 @@
-import React from 'react';
-import { Line, Chart } from 'react-chartjs-2';
+import React, { Suspense, lazy } from 'react';
 import { Layout } from '../components/Layout';
 import {
   Chart as ChartJS,
@@ -16,6 +15,7 @@ import {
   TooltipItem,
 } from 'chart.js';
 
+// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,6 +26,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+// Lazy load chart components
+const Line = lazy(() => import('react-chartjs-2').then(mod => ({ default: mod.Line })));
+const Chart = lazy(() => import('react-chartjs-2').then(mod => ({ default: mod.Chart })));
 
 interface InvestmentCardProps {
   icon: string;
@@ -299,7 +303,7 @@ const Investments: React.FC = () => {
       <div className="p-4 sm:p-6 bg-gray-50 min-h-screen">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
           <InvestmentCard
-            icon="💼"
+            icon="��"
             title="Total portfolio value"
             value="$82,500"
             subtitle="+12.5% YTD"
@@ -363,13 +367,17 @@ const Investments: React.FC = () => {
           <div className="bg-white rounded-xl p-0 sm:p-4">
             <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio performance</h3>
             <div className="w-full h-[250px] sm:h-[300px]">
-              <Chart type='bar' data={portfolioPerformance} options={performanceChartOptions} />
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center">Loading chart...</div>}>
+                <Chart type="bar" data={portfolioPerformance} options={performanceChartOptions} />
+              </Suspense>
             </div>
           </div>
           <div className="bg-white rounded-xl p-0 sm:p-4">
             <h3 className="text-lg font-semibold mb-2 sm:mb-4 px-4 sm:px-0 pt-4 sm:pt-0">Portfolio growth</h3>
             <div className="w-full h-[250px] sm:h-[300px]">
-              <Line data={sectorAllocation} options={chartOptions} />
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center">Loading chart...</div>}>
+                <Line data={sectorAllocation} options={chartOptions} />
+              </Suspense>
             </div>
           </div>
         </div>
