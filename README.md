@@ -22,6 +22,8 @@ A modern banking portal demo built with Next.js and React, featuring account man
 
 ## Getting Started
 
+### Local Development
+
 ```sh
 # Clone the repository
 git clone <repository-url>
@@ -38,6 +40,18 @@ npm run dev
 
 Visit `http://localhost:8080` to view the application.
 
+### Docker Deployment
+
+```sh
+# Build the Docker image
+docker build -t bank-of-little-rock .
+
+# Run the container
+docker run -p 8080:8080 bank-of-little-rock
+```
+
+The application will be available at `http://localhost:8080`.
+
 ## Project Structure
 
 - `/src/pages` - Main application pages
@@ -53,3 +67,20 @@ The project uses:
 - ESLint for code quality
 - Prettier for code formatting
 - Tailwind CSS for styling
+
+## Docker Environment Variables
+
+The following environment variables can be configured when running the Docker container:
+
+```sh
+# Example with custom configuration
+docker run -p 8080:8080 \
+  -e NODE_ENV=production \
+  -e API_URL=https://api.example.com \
+  bank-of-little-rock
+```
+
+Available environment variables:
+- `NODE_ENV`: Set to 'production' for production deployment
+- `API_URL`: Backend API URL (if applicable)
+- `PORT`: Port to run the application (defaults to 8080)
