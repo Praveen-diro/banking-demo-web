@@ -30,13 +30,33 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
     <aside className="w-64 bg-white h-screen fixed left-0 top-0 border-r border-gray-200 z-50">
       <div className="p-6">
         <div className="flex items-center gap-2 mb-8">
-          {/* <img 
-            src="/bank_logo.png"
-            alt="Bank Logo"
-            className="w-100 h-100 object-contain"
-            onClick={handleClick}
-          /> */}
-          <span className="text-xl font-bold ml-5" style={{ fontFamily: 'sans-serif',color: '#1d1e9c',fontSize: '24px',fontWeight:"700" }}>BankDash</span>
+          <Link to="/" className="flex items-center gap-2 text-[#1d1E9C] font-bold">
+            <svg
+              width="50"
+              height="50"
+              viewBox="0 0 28 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-[#1d1E9C]"
+            >
+              {/* Front face */}
+              <path
+                d="M8 8L16 4L24 8L16 12L8 8Z"
+                fill="#1d1E9C"
+              />
+              {/* Right face */}
+              <path
+                d="M24 8L16 12V24L24 20V8Z"
+                fill="#4141B3"
+              />
+              {/* Left face */}
+              <path
+                d="M8 8L16 12V24L8 20V8Z"
+                fill="#6161C7"
+              />
+            </svg>
+            <span className="text-2xl mt-2">BankDash</span>
+          </Link>
         </div>
         
         <nav className="space-y-2">

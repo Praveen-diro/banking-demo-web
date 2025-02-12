@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [selectedOption, setSelectedOption] = useState('Corporate');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -48,9 +49,48 @@ const Login: React.FC = () => {
           {/* Top Navigation */}
           <div className="flex justify-between py-2 text-sm border-b">
             <div className="flex space-x-6">
-              <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Personal</Link>
-              <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Corporate</Link>
-              <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Commercial</Link>
+              <Link 
+                to="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedOption('Personal');
+                }}
+                className={`text-gray-600 hover:text-[#1d1E9C] transition-colors ${
+                  selectedOption === 'Personal' 
+                    ? 'text-[#1d1E9C] underline decoration-2 underline-offset-[4px]' 
+                    : ''
+                }`}
+              >
+                Personal
+              </Link>
+              <Link 
+                to="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedOption('Corporate');
+                }}
+                className={`text-gray-600 hover:text-[#1d1E9C] transition-colors ${
+                  selectedOption === 'Corporate' 
+                    ? 'text-[#1d1E9C] underline decoration-2 underline-offset-[4px]' 
+                    : ''
+                }`}
+              >
+                Corporate
+              </Link>
+              <Link 
+                to="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedOption('Commercial');
+                }}
+                className={`text-gray-600 hover:text-[#1d1E9C] transition-colors ${
+                  selectedOption === 'Commercial' 
+                    ? 'text-[#1d1E9C] underline decoration-2 underline-offset-[4px]' 
+                    : ''
+                }`}
+              >
+                Commercial
+              </Link>
             </div>
             <div className="flex space-x-6">
               <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Schedule a meeting</Link>
@@ -81,26 +121,51 @@ const Login: React.FC = () => {
           {/* Main Navigation */}
           <div className="flex h-16 items-center">
             <div className="flex items-center">
-              <Link to="/" className="text-[#1d1E9C] font-bold text-xl mr-8">BankDash</Link>
+              <Link to="/" className="flex items-center gap-2 text-[#1d1E9C] font-bold text-xl mr-8">
+                <svg
+                  width="50"
+                  height="50"
+                  viewBox="0 0 28 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-[#1d1E9C]"
+                >
+                  {/* Front face */}
+                  <path
+                    d="M8 8L16 4L24 8L16 12L8 8Z"
+                    fill="#1d1E9C"
+                  />
+                  {/* Right face */}
+                  <path
+                    d="M24 8L16 12V24L24 20V8Z"
+                    fill="#4141B3"
+                  />
+                  {/* Left face */}
+                  <path
+                    d="M8 8L16 12V24L8 20V8Z"
+                    fill="#6161C7"
+                  />
+                </svg>
+                <span className="text-2xl mt-2">BankDash</span>
+              </Link>
               
-                       <div className="flex items-center gap-2 ">
-                        
-          {/* <img 
-            src="bank_logo.png"
-            alt="Bank Logo"
-            className="w-30 h-14 object-cover mr-5"
-          /> */}
-          {/* <span className="text-xl font-bold">Bank Portal</span> */}
-        </div>
+              <div className="flex items-center gap-2">
+                {/* <img 
+                  src="bank_logo.png"
+                  alt="Bank Logo"
+                  className="w-30 h-14 object-cover mr-5"
+                /> */}
+                {/* <span className="text-xl font-bold">Bank Portal</span> */}
+              </div>
               <div className="hidden md:flex items-center space-x-6">
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Checking</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Savings & CDs</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Credit cards</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Home loans</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Auto</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Investing</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Education & goals</Link>
-                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] hover:underline transition-colors">Travel</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Checking</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Savings & CDs</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Credit cards</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Home loans</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Auto</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Investing</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Education & goals</Link>
+                <Link to="/" className="text-gray-600 hover:text-[#1d1E9C] transition-colors">Travel</Link>
               </div>
             </div>
           </div>
@@ -181,7 +246,7 @@ const Login: React.FC = () => {
                 <input
                   id="email"
                   name="email"
-                  type="email"
+                  type="text"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
@@ -324,9 +389,9 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="/checking_acccount.jpg"
+                  src="/checking_acccount1.jpg"
                   alt="Checking Account Dashboard"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg  h-44"
                 />
               </div>
               <h3 className="text-xl font-semibold mb-3">Checking Accounts</h3>
