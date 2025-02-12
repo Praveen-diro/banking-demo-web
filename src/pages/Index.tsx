@@ -75,7 +75,7 @@ const recentTransactionsByType = {
     },
     {
       id: "TX-002",
-      description: "Escrow deposit",
+      description: "Foreign transfer",
       amount: 18000000,
       date: "2024-03-12",
       type: "debit",
@@ -91,14 +91,6 @@ const recentTransactionsByType = {
       type: "credit",
       accountNumber: "8712083309"
     },
-    {
-      id: "TX-004",
-      description: "Foreign exchange",
-      amount: 15000000,
-      date: "2024-03-11",
-      type: "debit",
-      accountNumber: "8712083309"
-    }
   ],
   "Checking account": [
     {
