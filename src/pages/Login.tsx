@@ -81,14 +81,15 @@ const Login: React.FC = () => {
           {/* Main Navigation */}
           <div className="flex h-16 items-center">
             <div className="flex items-center">
-              {/* <Link to="/" className="text-[#1d1E9C] font-bold text-xl mr-8">BankDash</Link>
-               */}
+              <Link to="/" className="text-[#1d1E9C] font-bold text-xl mr-8">BankDash</Link>
+              
                        <div className="flex items-center gap-2 ">
-          <img 
+                        
+          {/* <img 
             src="bank_logo.png"
             alt="Bank Logo"
             className="w-30 h-14 object-cover mr-5"
-          />
+          /> */}
           {/* <span className="text-xl font-bold">Bank Portal</span> */}
         </div>
               <div className="hidden md:flex items-center space-x-6">
@@ -323,7 +324,7 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="dashboard.png"
+                  src="/public/checking_acccount.jpg"
                   alt="Checking Account Dashboard"
                   className="w-full rounded-lg"
                 />
@@ -347,9 +348,9 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="dashboard.png"
+                  src="/public/savings_account.jpg"
                   alt="Savings Account Dashboard"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg h-44"
                 />
               </div>
               <h3 className="text-xl font-semibold mb-3">Savings Accounts</h3>
@@ -371,7 +372,7 @@ const Login: React.FC = () => {
             <div className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="mb-6">
                 <img
-                  src="dashboard.png"
+                  src="/public/foreign_account.jpg"
                   alt="Investment Dashboard"
                   className="w-full rounded-lg"
                 />

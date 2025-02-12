@@ -30,13 +30,13 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
     <aside className="w-64 bg-white h-screen fixed left-0 top-0 border-r border-gray-200 z-50">
       <div className="p-6">
         <div className="flex items-center gap-2 mb-8">
-          <img 
+          {/* <img 
             src="/bank_logo.png"
             alt="Bank Logo"
             className="w-100 h-100 object-contain"
             onClick={handleClick}
-          />
-          {/* <span className="text-xl font-bold">Bank Portal</span> */}
+          /> */}
+          <span className="text-xl font-bold ml-5" style={{ fontFamily: 'sans-serif',color: '#1d1e9c',fontSize: '24px',fontWeight:"700" }}>BankDash</span>
         </div>
         
         <nav className="space-y-2">

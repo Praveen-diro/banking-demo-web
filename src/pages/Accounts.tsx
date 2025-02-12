@@ -38,7 +38,7 @@ const transactionsByType = {
   "Escrow account": [
     {
       id: "TX-001",
-      person: "Tata goods Inc",
+      person: "Tata Goods Inc",
       description: "Escrow payment",
       amount: 250000,
       date: "2024-03-15",
@@ -48,7 +48,7 @@ const transactionsByType = {
     },
     {
       id: "TX-002",
-      person: "Real estate corp",
+      person: "Real Estate Corp",
       description: "Escrow Deposit",
       amount: 180000,
       date: "2024-03-12",
@@ -58,7 +58,7 @@ const transactionsByType = {
     },
     {
       id: "TX-007",
-      person: "Property management LLC",
+      person: "Property Management LLC",
       description: "Monthly Escrow",
       amount: 320000,
       date: "2024-03-08",
@@ -68,7 +68,7 @@ const transactionsByType = {
     },
     {
       id: "TX-008",
-      person: "City housing authority",
+      person: "City Housing Authority",
       description: "Property Tax Payment",
       amount: 150000,
       date: "2024-03-05",
@@ -78,7 +78,7 @@ const transactionsByType = {
     },
     {
       id: "TX-009",
-      person: "Home insurance Co",
+      person: "Home Insurance Company",
       description: "Insurance Payment",
       amount: 75000,
       date: "2024-03-01",
@@ -90,7 +90,7 @@ const transactionsByType = {
   "Foreign currency account": [
     {
       id: "TX-003",
-      person: "Global trading Ltd",
+      person: "Global Trading Company",
       description: "International transfer",
       amount: 320000,
       date: "2024-03-14",
@@ -100,7 +100,7 @@ const transactionsByType = {
     },
     {
       id: "TX-004",
-      person: "Euro exchange Inc",
+      person: "Euro Exchange Inc",
       description: "Foreign exchange",
       amount: 150000,
       date: "2024-03-11",
@@ -110,7 +110,7 @@ const transactionsByType = {
     },
     {
       id: "TX-010",
-      person: "Asian markets Corp",
+      person: "Asian Markets Corp",
       description: "Import payment",
       amount: 450000,
       date: "2024-03-07",
@@ -120,7 +120,7 @@ const transactionsByType = {
     },
     {
       id: "TX-011",
-      person: "Deutsche bank AG",
+      person: "Deutsche Bank AG",
       description: "SWIFT transfer",
       amount: 680000,
       date: "2024-03-04",
@@ -130,7 +130,7 @@ const transactionsByType = {
     },
     {
       id: "TX-012",
-      person: "HSBC holdings",
+      person: "HSBC Holdings",
       description: "Forex settlement",
       amount: 290000,
       date: "2024-03-02",
@@ -142,7 +142,7 @@ const transactionsByType = {
   "Checking account": [
     {
       id: "TX-005",
-      person: "Payroll services",
+      person: "Payroll Meta Services",
       description: "Direct deposit",
       amount: 450000,
       date: "2024-03-13",
@@ -152,7 +152,7 @@ const transactionsByType = {
     },
     {
       id: "TX-006",
-      person: "ATM withdrawal",
+      person: "Aplhabet Inc",
       description: "Cash withdrawal",
       amount: 75000,
       date: "2024-03-10",
@@ -162,7 +162,7 @@ const transactionsByType = {
     },
     {
       id: "TX-013",
-      person: "Amazon.com",
+      person: "Amazon",
       description: "Online purchase",
       amount: 12500,
       date: "2024-03-06",
@@ -172,7 +172,7 @@ const transactionsByType = {
     },
     {
       id: "TX-014",
-      person: "Walmart stores",
+      person: "Walmart",
       description: "POS purchase",
       amount: 8500,
       date: "2024-03-03",
@@ -182,7 +182,7 @@ const transactionsByType = {
     },
     {
       id: "TX-015",
-      person: "Utility company",
+      person: "Uber",
       description: "Bill payment",
       amount: 25000,
       date: "2024-03-01",
@@ -320,7 +320,7 @@ const Accounts = () => {
                 <ArrowUpRight className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-muted">Deposite</p>
+                <p className="text-sm text-muted">Deposit</p>
                 <p className="text-xl font-semibold">${(totals.income / 100).toFixed(2)}</p>
               </div>
             </CardContent>

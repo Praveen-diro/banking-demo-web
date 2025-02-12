@@ -138,7 +138,7 @@ const Index = () => {
             <CreditAccount
               balance={18003443}
               cardHolder="Coforge Inc"
-              cardNumber="3778232389"
+              cardNumber="8712434432"
               expiryDate="12/22"
               CardType="Checking account"
             />
@@ -150,7 +150,7 @@ const Index = () => {
             <CreditAccount2
               balance={21434342}
               cardHolder="Coforge Inc"
-              cardNumber="8712083309"
+              cardNumber="3778232389"
               expiryDate="12/22"
               CardType="Escrow account"
             />
@@ -162,7 +162,7 @@ const Index = () => {
             <CreditAccount2
               balance={70005673}
               cardHolder="Coforge Inc"
-              cardNumber="8712434432"
+              cardNumber="8712083309"
               expiryDate="12/22"
               CardType="Foreign currency "
               currency="£"
