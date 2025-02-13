@@ -10,7 +10,7 @@ const cardAccounts = [
   {
     type: "Checking account",
     balance: 18003443,
-    cardHolder: "Coforge Inc",
+    cardHolder: "FluxPay Inc",
     cardNumber: "8712434432",
     expiryDate: "12/22",
     Active: "active"
@@ -18,7 +18,7 @@ const cardAccounts = [
   {
     type: "Escrow account",
     balance: 21434342,
-    cardHolder: "Coforge Inc",
+    cardHolder: "FluxPay Inc",
     cardNumber: "3778232389",
     expiryDate: "12/22",
     Active: "Active"
@@ -26,7 +26,7 @@ const cardAccounts = [
   {
     type: "Foreign currency account",
     balance: 70005673,
-    cardHolder: "Coforge Inc",
+    cardHolder: "FluxPay Inc",
     cardNumber: "8712083309",
     expiryDate: "12/22",
     Active: "active"

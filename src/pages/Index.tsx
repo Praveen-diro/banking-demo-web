@@ -129,7 +129,7 @@ const Index = () => {
             <h2 className="text-xl font-semibold mb-4">Accounts</h2>
             <CreditAccount
               balance={18003443}
-              cardHolder="Coforge Inc"
+              cardHolder="FluxPay Inc"
               cardNumber="8712434432"
               expiryDate="12/22"
               CardType="Checking account"
@@ -141,7 +141,7 @@ const Index = () => {
                onClick={() => handleCardClick("Foreign account")}>
             <CreditAccount2
               balance={21434342}
-              cardHolder="Coforge Inc"
+              cardHolder="FluxPay Inc"
               cardNumber="3778232389"
               expiryDate="12/22"
               CardType="Escrow account"
@@ -153,7 +153,7 @@ const Index = () => {
                onClick={() => handleCardClick("Checking account")}>
             <CreditAccount2
               balance={70005673}
-              cardHolder="Coforge Inc"
+              cardHolder="FluxPay Inc"
               cardNumber="8712083309"
               expiryDate="12/22"
               CardType="Foreign currency "
