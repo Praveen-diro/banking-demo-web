@@ -31,30 +31,32 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
       <div className="p-6">
         <div className="flex items-center gap-2 mb-8">
           <Link to="/" className="flex items-center gap-2 text-[#1d1E9C] font-bold">
-            <svg
-              width="50"
-              height="50"
-              viewBox="0 0 28 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-[#1d1E9C]"
-            >
-              {/* Front face */}
-              <path
-                d="M8 8L16 4L24 8L16 12L8 8Z"
-                fill="#1d1E9C"
-              />
-              {/* Right face */}
-              <path
-                d="M24 8L16 12V24L24 20V8Z"
-                fill="#4141B3"
-              />
-              {/* Left face */}
-              <path
-                d="M8 8L16 12V24L8 20V8Z"
-                fill="#6161C7"
-              />
-            </svg>
+          <svg
+                  width="45"
+                  height="55"
+                  viewBox="0 0 32 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-[#1d1E9C]"
+                >
+                  {/* Front face */}
+                  <path
+                    d="M8 6L16 2L28 8L16 14L4 8Z"
+                    fill="#1D1E9C"
+                  />
+                  {/* Right face */}
+                  <path
+                    d="M28 8L16 14V26L28 20V8Z"
+                    fill="#1D1E9C"
+                    opacity="0.6"
+                  />
+                  {/* Left face */}
+                  <path
+                    d="M4 8L16 14V26L4 20V8Z"
+                    fill="#1D1E9C"
+                    opacity="0.6"
+                  />
+          </svg>
             <span className="text-2xl mt-2">BankDash</span>
           </Link>
         </div>
